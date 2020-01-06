@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>This is a nwe trying</title>
+	</head>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: skyblue;
+		}
+		.box{
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			background-color: #00FFFF;
+		}
+		button{
+			position: absolute;
+			transform: translateX(100px) translateY(200px);
+		}
+		.fires{
+			width: 10px;
+			height: 10px;
+			position: absolute;
+			border-radius: 80%;
+		}
+	</style>
+	<body>
+		
+		
+		<script type="text/javascript">
+			/* ********************************************************************************************** */
+			
+			
+			var x,y,h;
+			h=document.body.clientHeight;
+			document.onclick=function getXY(e){
+				//获取x,y,的坐标!
+				var e = e || window.event;
+					x = e.clientX,
+					y = e.clientY;
+				//测试console.log(x);
+				//2,船舰一个烟花的照片!
+					firework();
+			}
+			
+			
+			
+			function firework(){
+				var n =Math.ceil(Math.random()*50) + 50;//随机生成50-100的随机数!
+				var fire = [];//一个数组
+				for(var i=0;i<n;i++)
+				{
+					fire[i] = document.createElement("div")
+					fire[i].className = "fires";
+					fire[i].style.left = x+ "px";
+					fire[i].style.top = y+ "px";
+					fire[i].style.background = color1();
+					//
+					fire[i].SpeedX = Math.random()*20 -10 ;
+					fire[i].SpeedY = Math.random()*20 - 10;
+					//添加到
+					
+					document.body.appendChild(fire[i]);
+				}	
+					//散开 花
+				setInterval(function(){
+					for(var i=0;i<n;i++)
+					{
+						
+						fire[i].style.left = fire[i].offsetLeft + fire[i].SpeedX + "px";
+						fire[i].style.top = fire[i].offsetTop + fire[i].SpeedY +"px";							
+						
+						fire[i].SpeedY += 1; //y轴速度上升;
+							
+						if(fire[i].offsetTop> h || fire[i].offsetLeft < 0 || fire[i].offsetLeft > document.body.clientWidth ) 
+						{
+							document.body.removeChild(fire[i]);		
+						}
+					}
+				},1000/60);
+				
+			}
+			
+		/* 	var Yl = false;
+			var Div = document.createElement("div");
+				Div.className = "box";
+				Div.style.left = 400 + "px";
+				Div.style.top = 400 + "px";
+				
+			
+			 function creatDiv(){
+				 if(Yl==true){
+					document.body.removeChild(Div); 
+					Yl=false;
+				 }
+				 else{					 
+					Div.style.background = color1();
+					//添加document appendChild
+					document.body.appendChild(Div);
+					Yl=true;
+				 }
+			} */
+			//setInterval(creatDiv,100)
+			
+			//随机颜色!
+			function color1(){
+				var r = Math.floor(Math.random()*256);
+				var g = Math.floor(Math.random()*256);
+				var b = Math.floor(Math.random()*256);
+				return "rgb("+ r+","+g+","+b+")"
+			}
+		</script>
+	</body>
+</html>
